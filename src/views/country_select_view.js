@@ -7,14 +7,16 @@ const PubSub = require('../helpers/pub_sub.js');
 SelectView.prototype.bindEvents = function () {
   PubSub.subscribe('Country:all-countries-loaded', (evt) => {
     const allCountries = evt.detail;
+    console.log(allCountries);
     this.populate(allCountries);
   });
 
-  this.element.addEventListener('change', (evt) ={
+  this.element.addEventListener('change', (evt) => {
     const selectedIndex = evt.target.value;
+    console.log(selectedIndex);
     PubSub.publish('SelectView:change', selectedIndex);
   });
-};
+}
 
 SelectView.prototype.populate = function (countryData) {
   countryData.forEach((country, index) => {
@@ -22,7 +24,7 @@ SelectView.prototype.populate = function (countryData) {
     option.textContent = country.name;
     option.value = index;
     this.element.appendChild(option);
-  });
+  })
 };
 
 
