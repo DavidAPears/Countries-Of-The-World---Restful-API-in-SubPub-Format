@@ -13,5 +13,17 @@ Country.prototype.getAll = function () {
   });
 };
 
+Country.prototype.bindevents = function () {
+    PubSub.subscribe('SelectView:change', (evt) =>{
+      const selectedIndex = evt.detail;
+      this.publishCountryDetail(selectedIndex);
+    })
+};
+
+Country.prototype.publishCountryDetail = function (countryIndex) {
+  const selectedCountry = this.countryData[countryIndex];
+  PubSub.publish('Country:selected-country-ready', selectedCountry)
+};
+
 
 module.exports = Country
